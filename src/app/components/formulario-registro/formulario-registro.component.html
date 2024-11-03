@@ -1,6 +1,6 @@
 <div class="container-fluid" style="width: 400px">
     <div class="row">
-      <div class="col-12">
+      <div class="col-12 m-4">
         <h1 class="text-center">Registrarse:</h1>
       </div>
     </div>
@@ -12,7 +12,7 @@
         #personForm="ngForm"
       >
         <div class="row">
-            <div class="col-12 mb-3">
+          <div class="col-12 mb-3">
             <label for="name" class="form-label">Nombre *</label>
             <input
               type="text"
@@ -23,9 +23,9 @@
               required
               [(ngModel)]="person.name"
             />
-        </div>
+          </div>
 
-        <div class="col-12 mb-3">
+          <div class="col-12 mb-3">
             <label for="name" class="form-label">Apellidos *</label>
             <input
               type="text"
@@ -36,84 +36,138 @@
               required
               [(ngModel)]="person.surnames"
             />
-        </div>
+          </div>
 
-          <div class="col-6 mb-3">
-            <label for="age" class="form-label">NIF</label>
+          <div class="col-8 mb-3">
+            <label for="age" class="form-label">NIF *</label>
             <input
-              type="number"
+              type="text"
               class="form-control"
               id="nif"
               name="nif"
+              placeholder="0"
               required
-              [(ngModel)]="student.nif"
+              [(ngModel)]="person.nif"
+              (input)="calculateNifLetter()"
             />
-        </div>
+          </div>
 
-
-
-
-
-
+          <div class="col-4 mb-3">
+            <label for="nifLetter" class="form-label">Letra</label>
+            <span class="form-control">{{nifLetter}}</span>
+          </div>
 
           <div class="col-12 mb-3">
-            <label for="course" class="form-label">Course *</label>
-  
-            <select
-              class="form-select"
-              aria-label="Default select example"
-              name="course"
-              id="course"
-              required
-              [(ngModel)]="student.course"
-            >
-              <option value="" selected="selected">-Select one-</option>
-              @for(course of courseList; track course){
-              <option [value]="course">{{ course }}</option>
-              }
-            </select>
-          </div>
-          <div class="col-6 mb-3">
-            <label for="age" class="form-label">Age</label>
+            <label for="name" class="form-label">Email *</label>
             <input
-              type="number"
+              type="email"
               class="form-control"
-              id="age"
-              name="age"
-              [(ngModel)]="student.age"
+              id="email"
+              name="email"
+              placeholder="ejemplo@gmail.com"
+              required
+              [(ngModel)]="person.email"
             />
           </div>
-          <div class="col-6 mb-3">
-            <label for="phone" class="form-label">Phone number *</label>
+
+          <div class="col-8 mb-3">
+            <label for="phone" class="form-label">Número de teléfono *</label>
             <input
               type="text"
               class="form-control"
               id="phone"
               name="phone"
-              placeholder="Phone number"
+              placeholder="Número de teléfono"
               required
-              [(ngModel)]="student.phone"
+              [(ngModel)]="person.phone"
             />
           </div>
+
+          <div class="col-4 mb-3">
+            <label for="sex" class="form-label">Sexo</label>
+            <select
+            class="form-select"
+            name="sex"
+            id="sex"
+            required
+            [(ngModel)]="person.sex"
+          >
+            <option value="" selected="selected">-Sexo-</option>
+            @for(course of sexList; track course){
+            <option [value]="course">{{ course }}</option>
+            }
+          </select>
+          </div>
+          
+          <div class="col-12 mb-3">
+            <label for="pageKnownBy" class="form-label">¿Cómo conociste la página?</label>
+            <select
+            class="form-select"
+            name="pageKnownBy"
+            id="pageKnownBy"
+            required
+            [(ngModel)]="person.pageKnownBy"
+          >
+            <option value="" selected="selected">-¿Cómo conociste la página?-</option>
+            @for(course of optionList; track course){
+            <option [value]="course">{{ course }}</option>
+            }
+          </select>
+          </div>
+
+          <div class="col-12 mb-3">
+            <label for="password" class="form-label">Contraseña *</label>
+            <input
+              type="password"
+              class="form-control"
+              id="password"
+              name="password"
+              placeholder="Contraseña"
+              required
+              [(ngModel)]="person.password"
+              (input)="checkPassword()"
+            />
+          </div>
+
+          <div class="col-12 mb-3">
+            <label for="passwordAgain" class="form-label">Confirmar contraseña *</label>
+            <input
+              type="password"
+              class="form-control"
+              id="passwordAgain"
+              name="passwordAgain"
+              placeholder="Confirmar contraseña"
+              required
+              [(ngModel)]="person.passwordAgain"
+              (input)="checkPassword()"
+            />
+          </div>
+
+          <div *ngIf="passwordMismatchMessage" class="alerta-error">
+            {{ passwordMismatchMessage }}
+            
+          </div>
+
           <div class="col-12">
             <button
+              id="submitForm"
               type="submit"
               class="btn btn-primary"
               style="width: 100%"
-              [disabled]="!studentForm.form.valid"
+              [disabled]="!personForm.form.valid || !passwordMatch"
             >
-              Create student
+              Crear cuenta
             </button>
           </div>
         </div>
       </form>
     </div>
-    <div class="row" [hidden]="!submitted">
-      <div class="col-12">
-        <div class="alert alert-success d-flex align-items-center" role="alert">
-          <div>Formulario enviado</div>
-        </div>
+  <div class="row" [hidden]="!submitted">
+    <div class="col-12">
+      <div class="alert alert-success d-flex align-items-center" role="alert">
+        <div>Formulario enviado</div>
       </div>
     </div>
   </div>
+</div>
   

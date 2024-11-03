@@ -1,4 +1,4 @@
-export class StudentDto {
+export class PersonDto {
     constructor(
       public name: string,
       public surnames: string,
